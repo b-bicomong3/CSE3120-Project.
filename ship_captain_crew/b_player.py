@@ -36,10 +36,9 @@ class Player:
 
         :return:
         """
-        self.TEMP_SCORE = 0
-        for i in range(2):
-            self.TEMP_SCORE += self.DICE[i].DIE_NUM
-        return self.TEMP_SCORE
+        for i in range(len(self.DICE)):
+            self.SCORE += self.DICE[i].DIE_NUM
+        return self.SCORE
 
     def addScore(self, POINTS):
         """
@@ -104,9 +103,9 @@ class Player:
             for die in self.DICE:
                 die.displayDie()
 
-    def resetDie(self):
+    def reset(self):
         """
-        move all dice from HELD to DICE
+        move all dice from HELD to DICE, true and false statements and temporary score
         :return: None
         """
         self.DICE += self.HELD
@@ -117,6 +116,7 @@ class Player:
         self.FOUND = False
         self.FOUND_1 = False
         self.FOUND_2 = False
+        self.TEMP_SCORE = 0
 
     def reroll(self):
         if self.FOUND_1 is False:

@@ -49,28 +49,23 @@ class Game:
                 if ROLLS != 3 and len(self.PLAYER1.DICE) > 2:
                     self.PLAYER1.reroll()
                     input("Re-roll! (To continue press enter)")
-                if ROLLS != 3 and len(self.PLAYER1.DICE) == 2:
-                    TEMP_SCORE = self.PLAYER1.Score()
-                    print(f"Would you like to keep {TEMP_SCORE} pieces of gold? (y/N)")
-                    CHOICE = input("> ")
-                    if CHOICE.upper() == "n":
-                        self.PLAYER1.rollDice()
-                    else:
-                        SCORE = self.PLAYER1.addScore(TEMP_SCORE)
-                        print(f"Your total amount of booty is {SCORE}")
-                        if self.PLAYER1.SCORE >= 20:
-                            break
 
             if ROLLS == 3 and len(self.PLAYER1.DICE) > 2:
                 print("You weren't able to get all the requirements")
-            elif ROLLS == 3 and len(self.PLAYER1.DICE) == 2:
+            elif ROLLS < 3 and len(self.PLAYER1.DICE) == 2:
                 TEMP_SCORE = self.PLAYER1.Score()
-                SCORE = self.PLAYER1.addScore(TEMP_SCORE)
-                print(f"Your total amount of booty is {SCORE}")
-                if self.PLAYER1.SCORE >= 20:
-                    break
+                print(f"Would you like to keep {TEMP_SCORE} pieces of gold? (y/N)")
+                CHOICE = input("> ")
+                if CHOICE.upper() == "N":
+                    self.PLAYER1.rollDice()
+                    print("Remaining Dice:")
+                    for die in self.PLAYER1.DICE:
+                        die.displayDie()
+            if ROLLS == 3 and len(self.PLAYER1.DICE) == 2:
+                self.PLAYER1.SCORE = self.PLAYER1.Score()
+                print(f"Your total amount of booty is {self.PLAYER1.SCORE}")
 
-            self.PLAYER1.resetDie()
+            self.PLAYER1.reset()
             # --- DEALER TURN --- #
             print("Dealer Turn!")
             ROLLS = 0
@@ -84,13 +79,19 @@ class Game:
 
             if ROLLS == 3 and len(self.__DEALER.DICE) > 2:
                 print("Dealer wasn't able to get all the requirements")
-            else:
-                TEMP_SCORE = self.__DEALER.Score()
-                SCORE = self.__DEALER.addScore(TEMP_SCORE)
+            elif ROLLS < 3 and len(self.__DEALER.DICE) == 2:
+                SCORE = self.__DEALER.Score()
+                if SCORE < 6:
+                    self.__DEALER.rollDice()
+                    print("Remaining Dice:")
+                    for die in self.__DEALER.DICE:
+                        die.displayDie()
+            if ROLLS == 3 and len(self.__DEALER.DICE) == 2:
+                SCORE = self.__DEALER.Score()
                 print(f"Dealer's total amount of booty is {SCORE}")
-                if self.__DEALER.SCORE >= 20:
-                    break
-            self.__DEALER.resetDie()
+
+            self.__DEALER.reset()
+
         if self.PLAYER1.SCORE > self.__DEALER.SCORE:
             print("Player 1 Wins!")
         else:
@@ -98,9 +99,13 @@ class Game:
         exit()
 
     def doubleRun(self):
+        PLAYER_NAME1 = input("Player Name: ")
+        self.PLAYER1 = Player(PLAYER_NAME1)
+        PLAYER_NAME2 = input("Player Name: ")
+        self.PLAYER2 = Player(PLAYER_NAME2)
         while self.PLAYER1.SCORE <= 20 and self.PLAYER2.SCORE <= 20:
             # --- PLAYER 1 TURN --- #
-            print("Player 1 Turn!")
+            print(f"{self.PLAYER1.getName()}'s Turn!")
             ROLLS = 0
             while ROLLS < 3 and len(self.PLAYER1.DICE) > 2:
                 self.PLAYER1.rollDice()
@@ -112,19 +117,21 @@ class Game:
 
             if ROLLS == 3 and len(self.PLAYER1.DICE) > 2:
                 print("You weren't able to get all the requirements")
-            else:
+            if ROLLS > 3 and len(self.PLAYER1.DICE) == 2:
                 TEMP_SCORE = self.PLAYER1.Score()
                 print(f"Would you like to keep {TEMP_SCORE} pieces of gold? (y/N)")
                 CHOICE = input("> ")
                 if CHOICE.upper() == "Y":
                     SCORE = self.PLAYER1.addScore(TEMP_SCORE)
                     print(f"Your total amount of booty is {SCORE}")
-                    if self.PLAYER1.SCORE >= 20:
-                        break
+                else:
+                    self.PLAYER1.reroll()
+            if self.PLAYER1.SCORE >= 20:
+                break
             self.PLAYER1.resetDie()
 
             # --- PLAYER 2 TURN --- #
-            print("Player 2 Turn!")
+            print(f"{self.PLAYER2.getName()}'s Turn!")
             ROLLS = 0
             while ROLLS < 3 and len(self.PLAYER2.DICE) > 2:
                 self.PLAYER2.rollDice()
