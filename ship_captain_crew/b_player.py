@@ -22,7 +22,11 @@ class Player:
             self.DICE.append(Die())
         self.HELD = []
         self.SCORE = 0
+        self.POINTS = 0
         self.TEMP_SCORE = 0
+        self.SHIP_DICE = 0
+        self.CAPTAIN_DICE = 0
+        self.CREW_DICE = 0
         self.SHIP = False
         self.CAPTAIN = False
         self.CREW = False
@@ -31,21 +35,21 @@ class Player:
         self.FOUND_2 = False
         self.__NAME = NAME
 
-    def Score(self):
+    def Points(self):
         """
 
         :return:
         """
         for i in range(len(self.DICE)):
-            self.SCORE += self.DICE[i].DIE_NUM
-        return self.SCORE
+            self.POINTS += self.DICE[i].DIE_NUM
+        return self.POINTS
 
     def addScore(self, POINTS):
         """
 
         :return:
         """
-        self.SCORE += POINTS
+        self.SCORE += self.POINTS
         return self.SCORE
 
     def rollDice(self):
@@ -72,9 +76,7 @@ class Player:
                     self.HELD.append(self.DICE.pop(i))
                     self.SHIP = True
         if self.FOUND is True:
-            print(f"Found Ship")
-        else:
-            print("Ship not found")
+            self.SHIP_DICE = 1
 
         for i in range(len(self.DICE) - 1, -1, -1):
             if self.DICE[i].DIE_NUM == 5:
@@ -83,9 +85,7 @@ class Player:
                     self.HELD.append(self.DICE.pop(i))
                     self.CAPTAIN = True
         if self.FOUND_1 is True:
-            print(f"Found Captain")
-        else:
-            print("Captain not found")
+            self.CAPTAIN_DICE = 1
 
         for i in range(len(self.DICE) - 1, -1, -1):
             if self.DICE[i].DIE_NUM == 4:
@@ -94,14 +94,8 @@ class Player:
                     self.HELD.append(self.DICE.pop(i))
                     self.CREW = True
         if self.FOUND_2 is True:
-            print(f"Found Crew")
-        else:
-            print("Crew not found")
+            self.CREW_DICE = 1
 
-        if len(self.HELD) == 3:
-            print("Remaining Dice:")
-            for die in self.DICE:
-                die.displayDie()
 
     def reset(self):
         """
@@ -117,12 +111,18 @@ class Player:
         self.FOUND_1 = False
         self.FOUND_2 = False
         self.TEMP_SCORE = 0
+        self.POINTS = 0
+        self.SHIP_DICE = 0
+        self.CAPTAIN_DICE = 0
+        self.CREW_DICE = 0
 
     def reroll(self):
         if self.FOUND_1 is False:
             self.FOUND_2 = False
+            self.CREW_DICE = 0
         elif self.FOUND is False:
             self.FOUND_1 = False
+            self.CAPTAIN_DICE = 0
 
     def getName(self):
         return self.__NAME
@@ -133,6 +133,25 @@ class Player:
         else:
             return False
 
+    def displayResult(self):
+        if self.SHIP_DICE == 0:
+            print("Ship was not found")
+        else:
+            print("Ship was found")
+        if self.CAPTAIN_DICE == 0:
+            print("Captain was not found")
+        else:
+            print("Captain was found")
+        if self.CREW_DICE == 0:
+            print("Crew was not found")
+        else:
+            print("Crew was found")
+
+    def displayDice(self):
+        if len(self.HELD) == 3:
+            print("Remaining Dice:")
+            for die in self.DICE:
+                die.displayDie()
 
 # If __name__ == "__main__":
 #    NAME = Player()
