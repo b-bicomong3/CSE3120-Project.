@@ -35,10 +35,13 @@ class Player:
         self.FOUND_2 = False
         self.__NAME = NAME
 
+    # MODIFIER METHODS
+
+    # INPUTS
     def Points(self):
         """
-
-        :return:
+        calculates the amount of gold based on the die number
+        :return: int
         """
         for i in range(len(self.DICE)):
             self.POINTS += self.DICE[i].DIE_NUM
@@ -46,16 +49,19 @@ class Player:
 
     def addScore(self, POINTS):
         """
-
-        :return:
+        adds points to score
+        :param POINTS: int
+        :return: int
         """
         self.SCORE += self.POINTS
         return self.SCORE
 
+    # PROCESSING
+
     def rollDice(self):
         """
         rolls dice
-        :return:
+        :return: None
         """
         for die in self.DICE:
             die.rollDie()
@@ -63,12 +69,8 @@ class Player:
     def holdDie(self):
         """
          automatically hold die for player
-         :return:
+         :return: None
          """
-        #        print("Dice")
-        #        for die in self.DICE:
-        #            die.displayDie()
-
         for i in range(len(self.DICE) - 1, -1, -1):
             if self.DICE[i].DIE_NUM == 6:
                 self.FOUND = True
@@ -96,7 +98,6 @@ class Player:
         if self.FOUND_2 is True:
             self.CREW_DICE = 1
 
-
     def reset(self):
         """
         move all dice from HELD to DICE, true and false statements and temporary score
@@ -117,6 +118,10 @@ class Player:
         self.CREW_DICE = 0
 
     def reroll(self):
+        """
+        restarts requirement statements
+        :return: None
+        """
         if self.FOUND_1 is False:
             self.FOUND_2 = False
             self.CREW_DICE = 0
@@ -124,16 +129,13 @@ class Player:
             self.FOUND_1 = False
             self.CAPTAIN_DICE = 0
 
-    def getName(self):
-        return self.__NAME
-
-    def isWinner(self):
-        if self.SCORE >= 20:
-            return True
-        else:
-            return False
+    # OUTPUTS
 
     def displayResult(self):
+        """
+        displays whether a required dice was found or not
+        :return: None
+        """
         if self.SHIP_DICE == 0:
             print("Ship was not found")
         else:
@@ -148,15 +150,30 @@ class Player:
             print("Crew was found")
 
     def displayDice(self):
+        """
+        displays the remaining dice that calculates the player's score
+        :return:
+        """
         if len(self.HELD) == 3:
             print("Remaining Dice:")
             for die in self.DICE:
                 die.displayDie()
 
-# If __name__ == "__main__":
-#    NAME = Player()
-#
-#    for i in range(2):
-#        NAME.rollDice()
-#        NAME.holdDie()
-#        NAME.reroll()
+    # ACCESSOR METHODS
+
+    def getName(self):
+        """
+        get player's name
+        :return: str
+        """
+        return self.__NAME
+
+    def isWinner(self):
+        """
+        dictates winner
+        :return: bool
+        """
+        if self.SCORE >= 20:
+            return True
+        else:
+            return False
