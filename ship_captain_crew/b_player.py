@@ -38,7 +38,7 @@ class Player:
     # MODIFIER METHODS
 
     # INPUTS
-    def Points(self):
+    def points(self):
         """
         calculates the amount of gold based on the die number
         :return: int

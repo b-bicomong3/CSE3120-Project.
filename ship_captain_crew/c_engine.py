@@ -105,7 +105,7 @@ Boat ASCII from https://www.asciiart.eu/vehicles/boats
 
                 # If player was able to get all needed dice within three rolls
                 while ROLLS < 3 and len(self.PLAYER1.DICE) == 2:
-                    self.PLAYER1.TEMP_SCORE = self.PLAYER1.Points()
+                    self.PLAYER1.TEMP_SCORE = self.PLAYER1.points()
                     print(f"Rolls: {ROLLS}")
                     print(f"Would like to keep {self.PLAYER1.TEMP_SCORE} pieces of gold? (Y/n)")
                     OPTION = input("> ")
@@ -125,7 +125,7 @@ Boat ASCII from https://www.asciiart.eu/vehicles/boats
                 if ROLLS == 3 and len(self.PLAYER1.DICE) == 2:
                     print(f"Rolls: {ROLLS}")
                     if self.PLAYER1.TEMP_SCORE == 0:
-                        self.PLAYER1.TEMP_SCORE = self.PLAYER1.Points()  # NOTE: for calculating into the final roll NOT from re-rolling
+                        self.PLAYER1.TEMP_SCORE = self.PLAYER1.points()  # NOTE: for calculating into the final roll NOT from re-rolling
                     self.PLAYER1.SCORE = self.PLAYER1.addScore(self.PLAYER1.TEMP_SCORE)
                     input(f"Your total amount of booty is {self.PLAYER1.SCORE} (Press ENTER to continue)")
 
@@ -174,7 +174,7 @@ Boat ASCII from https://www.asciiart.eu/vehicles/boats
                     print(f"Rolls: {ROLLS}")
                     self.__DEALER.displayDice()
                     if self.__DEALER.TEMP_SCORE == 0:
-                        self.__DEALER.TEMP_SCORE = self.__DEALER.Points()
+                        self.__DEALER.TEMP_SCORE = self.__DEALER.points()
                     self.__DEALER.SCORE = self.__DEALER.addScore(self.__DEALER.TEMP_SCORE)
                     input(f"Dealer's total amount of booty is {self.__DEALER.SCORE} (Press ENTER to continue)")
 
@@ -211,7 +211,7 @@ Boat ASCII from https://www.asciiart.eu/vehicles/boats
                     input(f"{self.PLAYER1.getName()} wasn't able to get all the requirements (Press ENTER to continue)")
 
                 while ROLLS < 3 and len(self.PLAYER1.DICE) == 2:
-                    self.PLAYER1.TEMP_SCORE = self.PLAYER1.Points()
+                    self.PLAYER1.TEMP_SCORE = self.PLAYER1.points()
                     print(f"Rolls: {ROLLS}")
                     print(f"Would like to keep {self.PLAYER1.TEMP_SCORE} pieces of gold? (Y/n)")
                     OPTION = input("> ")
@@ -231,7 +231,7 @@ Boat ASCII from https://www.asciiart.eu/vehicles/boats
                 if ROLLS == 3 and len(self.PLAYER1.DICE) == 2:
                     print(f"Rolls: {ROLLS}")
                     if self.PLAYER1.TEMP_SCORE == 0:
-                        self.PLAYER1.TEMP_SCORE = self.PLAYER1.Points()
+                        self.PLAYER1.TEMP_SCORE = self.PLAYER1.points()
                     self.PLAYER1.SCORE = self.PLAYER1.addScore(self.PLAYER1.TEMP_SCORE)
                     input(
                         f"{self.PLAYER1.getName()}'s total amount of booty is {self.PLAYER1.SCORE} (Press ENTER to continue)")
@@ -257,7 +257,7 @@ Boat ASCII from https://www.asciiart.eu/vehicles/boats
 
                 while ROLLS < 3 and len(self.PLAYER2.DICE) == 2:
                     print(f"Rolls: {ROLLS}")
-                    self.PLAYER2.TEMP_SCORE = self.PLAYER2.Points()
+                    self.PLAYER2.TEMP_SCORE = self.PLAYER2.points()
                     print(f"Would like to keep {self.PLAYER2.TEMP_SCORE} pieces of gold? (Y/n)")
                     OPTION = input("> ")
                     if OPTION.upper() == "N":
@@ -276,7 +276,7 @@ Boat ASCII from https://www.asciiart.eu/vehicles/boats
                 if ROLLS == 3 and len(self.PLAYER2.DICE) == 2:
                     print(f"Rolls: {ROLLS}")
                     if self.PLAYER2.TEMP_SCORE == 0:
-                        self.PLAYER2.TEMP_SCORE = self.PLAYER2.Points()
+                        self.PLAYER2.TEMP_SCORE = self.PLAYER2.points()
                     self.PLAYER2.SCORE = self.PLAYER2.addScore(self.PLAYER2.TEMP_SCORE)
                     input(
                         f"{self.PLAYER2.getName()}'s total amount of booty is {self.PLAYER2.SCORE} (Press ENTER to continue)")
